@@ -27,6 +27,7 @@ echo "======================================================================="
 echo " HOOAMI V0.9"
 echo "======================================================================="
 echo "[1] INSTANCE-ID"
+echo "[99] VIEW-ALL"
 echo "======================================================================="
 
 inputNo=0
@@ -37,6 +38,8 @@ do
 
 	if [ "$inputNo" -eq "1" ]; then
 		$HOOAMI_HOME/script/m1.sh
+	elif [ "$inputNo" -eq "99" ]; then
+		$HOOAMI_HOME/script/m99.sh
 	elif [ "$inputNo" -eq "0" ]; then
 		break;
 	fi
