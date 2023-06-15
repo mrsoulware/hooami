@@ -29,7 +29,7 @@ recurcall() {
 	nextdepth=$(expr $depth + 1)
 
 	curl -s -H "X-aws-ec2-metadata-token: $TOKEN" $url |
-	while read line || [[ -n "$line" ]]
+	while read -r line || [[ -n "$line" ]]
 	do
 		i=0
 		while [ "$i" -lt "$2" ]
