@@ -1,30 +1,35 @@
 #!/bin/bash
 
 leafcall() {
+	local url
+	local depth
+	local key
 	local line
-	local i
 
-	i=0
-	while [ "$i" -lt "$2" ]
-	do
-  		echo -n "####"
-		((i++))
-	done
+	url="$1"
+	key="$3"
 
-	line=$(curl -s -H "X-aws-ec2-metadata-token: $TOKEN" $1)
+ 	echo -n "$key ="
+	line=$(curl -s -H "X-aws-ec2-metadata-token: $TOKEN" $url)
 	echo " $line"
 }
 
 recurcall() {
 	local line
 	local i
-
 	local index
 	local lastch
 	local url
-	local depth=$(expr $2 + 1)
+	local nexturl
+	local depth
+	local nextdepth
 
-	curl -s -H "X-aws-ec2-metadata-token: $TOKEN" $1 | while read line
+	url=$1
+	depth=$2
+	nextdepth=$(expr $depth + 1)
+
+	curl -s -H "X-aws-ec2-metadata-token: $TOKEN" $url |
+	while read line || [[ -n "$line" ]]
 	do
 		i=0
 		while [ "$i" -lt "$2" ]
@@ -32,34 +37,24 @@ recurcall() {
   			echo -n "####"
 			((i++))
 		done
-		echo " $line"
+		echo -n " "
+
 		index=$((${#line}-1))
 		lastch=${line:$index:1}
 		if [ "$lastch" = "/" ]; then
-			url="$1/${line::-1}"
-			recurcall "$url" "$depth"
+			echo "$line"
+			nexturl="$url/${line::-1}"
+			recurcall "$nexturl" "$nextdepth"
 		else
-			url="$1/${line}"
-			leafcall "$url" "$depth"
+			nexturl="$url/${line}"
+			leafcall "$nexturl" "$nextdepth" "$line"
 		fi
 	done
 }
 
-
 baseurl="http://169.254.169.254/latest/meta-data"
-curl -s -H "X-aws-ec2-metadata-token: $TOKEN" http://169.254.169.254/latest/meta-data | while read line
-do
-	echo "## $line"
-	index=$((${#line}-1))
-	lastch=${line:$index:1}
-	if [ "$lastch" = "/" ]; then
-		url="$baseurl/${line::-1}"
-		recurcall "$url" "1"
-	else
-		url="$baseurl/${line}"
-		leafcall "$url" "1"
-	fi
-done
+
+recurcall "$baseurl" "1"
 
 exit 0
 
