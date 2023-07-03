@@ -1,0 +1,22 @@
+# HOOAMI
+
+_hooami () {
+
+	# Declared Variable
+	COMPREPLY=()
+	local cur
+	local objects
+
+	cur="${COMP_WORDS[COMP_CWORD]}"
+
+	# objects
+	objects="INSTANCE-ID VIEW-ALL"
+
+	if [ ${COMP_CWORD} -eq 1 ]
+	then
+		COMPREPLY=( $(compgen -W "${objects}" -- ${cur}) )
+		return 0
+	fi;
+}
+
+complete -F _hooami hooami2.sh
