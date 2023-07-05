@@ -10,7 +10,7 @@ leafcall() {
 	key="$3"
 
  	echo -n "$key ="
-	line=$(curl -s -H "X-aws-ec2-metadata-token: $TOKEN" $url)
+	line=$(curl -s -H "X-aws-ec2-metadata-token: $TOKEN" $url | head -1)
 	echo " $line"
 }
 
@@ -31,13 +31,13 @@ recurcall() {
 	curl -s -H "X-aws-ec2-metadata-token: $TOKEN" $url |
 	while read -r line || [[ -n "$line" ]]
 	do
-		i=0
+		i=1
 		while [ "$i" -lt "$2" ]
 		do
-  			echo -n "####"
+  			echo -n "│   "
 			((i++))
 		done
-		echo -n " "
+		echo -n "├── "
 
 		index=$((${#line}-1))
 		lastch=${line:$index:1}
