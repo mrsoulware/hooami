@@ -36,11 +36,11 @@ while true
 do
 	read -p "Input the number of Menu list (0 for exit) : " inputNo
 
-	if [ "$inputNo" -eq "1" ]; then
+	if [ "$inputNo" = "1" ]; then
 		$HOOAMI_HOME/script/m1.sh
-	elif [ "$inputNo" -eq "99" ]; then
+	elif [ "$inputNo" = "99" ]; then
 		$HOOAMI_HOME/script/m99.sh
-	elif [ "$inputNo" -eq "0" ]; then
+	elif [ "$inputNo" = "0" ]; then
 		break;
 	fi
 done
