@@ -43,13 +43,19 @@ recurcall() {
 		i=1
 		while [ "$i" -lt "$2" ]
 		do
-  			echo -n "│   "
+			if [ ${lastnode[${i}]} = "T" ]; then
+  				echo -n "    "
+			else
+  				echo -n "│   "
+			fi
 			((i++))
 		done
 		if [ "$lineno" == "$linecnt" ]; then
 			echo -n "└── "
+			lastnode[${depth}]="T"
 		else
 			echo -n "├── "
+			lastnode[${depth}]="F"
 		fi
 
 		index=$((${#line}-1))
@@ -67,6 +73,7 @@ recurcall() {
 
 baseurl="http://169.254.169.254/latest/meta-data"
 
+echo "meta-data"
 recurcall "$baseurl" "1"
 
 exit 0
