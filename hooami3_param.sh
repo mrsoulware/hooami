@@ -56,7 +56,11 @@ if [ "$1" == "$short" ] && [ "$1" != "" ]; then
     echo ""
     echo "Call with param... [ $param ]"
     echo ""	
-    ${HOOAMI_HOME}/script/m19.sh $param
+    if [ "$1" == "ALL" ]; then
+        ${HOOAMI_HOME}/script/m99.sh
+    else
+        ${HOOAMI_HOME}/script/m19.sh $param
+    fi;
     echo ""
     echo "End call......"
     echo ""
