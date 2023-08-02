@@ -13,3 +13,21 @@ Input the number of Menu list (0 for exit) : 1
 INSTANCE-ID = i-06787ff23188cc3a4
 Input the number of Menu list (0 for exit) : 0
 ```
+# hooami_init.sh
+
+## 사용 예제
+```
+$ ./hooami_init.sh
+=======================================================================
+ HOOAMI V0.9
+=======================================================================
+[TUI] Text-User Interface
+[CLI] Command Line Interface
+=======================================================================
+```
+
+## TUI 사용
+```
+1. Python 3.x 설치
+2. picotui 설치
+```
