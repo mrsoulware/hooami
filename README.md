@@ -13,7 +13,7 @@ Input the number of Menu list (0 for exit) : 1
 INSTANCE-ID = i-06787ff23188cc3a4
 Input the number of Menu list (0 for exit) : 0
 ```
-# hooami_init.sh
+# hooami_init
 
 ## 사용 예제
 ```
