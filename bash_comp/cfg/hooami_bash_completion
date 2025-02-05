@@ -1,0 +1,25 @@
+# HOOAMI
+
+export HOOAMI_COMPLETION_YN="yes"
+
+_hooami () {
+
+	# Declared Variable
+	COMPREPLY=()
+	local cur
+	local objects
+
+	cur="${COMP_WORDS[COMP_CWORD]}"
+
+	# objects
+	# objects="INSTANCE-ID VIEW-ALL"
+	objects="bdm-ami bdm-ebs event-hist event-schd event-rebal iam-info iam-role inst-act inst-id inst-type ker-id l-ip4 vpd-id az az-id rg p-ip4 sg tag-inst"
+
+	if [ ${COMP_CWORD} -eq 1 ]
+	then
+		COMPREPLY=( $(compgen -W "${objects}" -- ${cur}) )
+		return 0
+	fi;
+}
+
+complete -F _hooami hooami2.sh
